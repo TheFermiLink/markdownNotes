@@ -42,3 +42,9 @@ Some other useful commands for interacting with git can include:
 `git status` returns a list of changed files which are tracked by git
 
 Git can be complicated, but rather useful. There are many resources online for troubleshooting and help.
+
+When creating a new repository, make sure to tell git which repository you'd like to link to, when you want to push:
+`git remote add origin git://github.com/my_user_name/my_repo.git`.
+
+If you have a forked repository and would like to pull upstream then you can simply  do:
+`git remote add upstream git://github.com/secret_project/dev.git` and then `git pull upstream branch_name`.
