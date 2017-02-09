@@ -12,13 +12,15 @@ setup uboonecode vXX_XX_XX -q {some qualifier}
 ```
 These are a bitch to remember so I've got an alias to do only the sourceing `srcub`, and the full setup `srcuboone vXX_XX_XX -q {some qualifier}`.
 
+The ups service can sometimes be difficult to navigate - especially when you have any type of version conflics. You can always type `ups active` to check which products you have currently setup.
+
 From here, you can run the version of LArSoft you've set up by using the command
 ```bash
 lar -c some_fcl_file.fcl ...
 ```
 
 ### building a local copy of LArSoft
-After the previous commands, cd to somewhere in your app directory and make a new directory. cd in to it and type the following instructions
+After the previous commands, cd to somewhere in your app directory and make a new directory. cd into it and type the following instructions
 ```bash
 mrb newDev # sets up a build, srcs and localproducts directory
 source localProducts_larsoft_.../setup
@@ -29,12 +31,14 @@ You can also use this to pull down other products, such as larpandora:
 ```bash
 mrb g -t vXX_XX_XX larpandora
 ```
-but note the version number doesn't necessarily correspond to the uboonecode version. Now cd to your build directory and run 
+but note the version number doesn't necessarily correspond to the uboonecode version. This is why the `-t` tag is important - this fetches you a tagged release. You can find the corresponding tagged releases needed in the larsoft release notes, found on [here](https://cdcvs.fnal.gov/redmine/projects/larsoft/wiki/LArSoft_release_list). Now cd to your build directory and run
 ```bash
 mrbsetenv
 mrb i -j4
 ```
-to install. You can also run `make install -j4` if the above steps have previously been followed and there are no new local packages. You should now run `mrbslp` from the base directory to setp up local products and so the code can be run.
+to install. You can also run `make install -j4` if the above steps have previously been followed and there are no new local packages. The `-j4` tag correpsonds to the number of cores used during compilation (using only one core will be very slow). You should now run `mrbslp` from the base directory to setp up local products and so the code can be run.
+
+If for some reason your installation of larsoft is no longer building due to changes or incompatible packages, you can always perform a "make clean" by typing `mrb z`. Following this make sure to set your environmental variables again using `mrbsetenv`, and then `mrb i -j4`.
 
 #### Setting up using ninja
 You can build uboonecode with the ninja flag to make compiling go significantly faster (after initial compilation). This is not setup bu default with uboonecode so you need to set up the UPS product yourself.
@@ -148,3 +152,7 @@ services.SignalShapingServiceMicroBooNE.FilterWidthCorrectionFactor: [ 0.5, 0.5,
 ```
 ### Reco2
 Using `reco_uboone_mcc8_driver_stage2.fcl`
+
+##Compiled List of Useful Files for LArSoft
+
+For generating exclusively cosmic ray samples involving the whole cosmic ray flux spectrum consider using this .fcl file: `prodcosmics_corsika_cmc_uboone.fcl`. There are a non-trivial number of cosmic generation .fcl files, and this one was recommended by the Production Group. NOTE: Be sure to `kinit` during your gpvm session before running the .fcl file, as the cosmic simulation input files are acessed via ifdh.
