@@ -156,3 +156,16 @@ Using `reco_uboone_mcc8_driver_stage2.fcl`
 ##Compiled List of Useful Files for LArSoft
 
 For generating exclusively cosmic ray samples involving the whole cosmic ray flux spectrum consider using this .fcl file: `prodcosmics_corsika_cmc_uboone.fcl`. There are a non-trivial number of cosmic generation .fcl files, and this one was recommended by the Production Group. NOTE: Be sure to `kinit` during your gpvm session before running the .fcl file, as the cosmic simulation input files are acessed via ifdh.
+
+## Updating a Feature Branch to a new LArSoft version
+
+# AS YET UNTESTED!
+
+```bash
+git stash
+git checkout develop
+git pull
+git checkout feature/$USER_featurebranch
+git merge develop
+git stash pop
+```
