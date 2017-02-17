@@ -57,6 +57,19 @@ Then, when building larsoft, you should run:
 mrb i -j4 --generator ninja
 ```
 
+#### Setting up multiple packages
+Say you want to setup both uboonecode and larsim packages. The correct way to do this is the following:
+```bash
+mrb newDev -v v06_16_00 -q e10:prof
+cd srcs/
+mrb g -t v06_16_00 uboonecode
+mrb g -t v06_08_00 larsim
+cd ../build_...
+mrbsetenv
+mrb i -j4 (with or without ninja)
+```
+
+I had issues getting this to work without the -v flag on newDev. YMMV.
 ### Making a new branch and developing
 Go to `srcs/<package>` i.e `srcs/uboonecode` and create your own branch to begin development
 ```bash
