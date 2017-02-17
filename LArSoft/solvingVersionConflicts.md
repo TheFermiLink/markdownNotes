@@ -12,3 +12,12 @@ Then `MicroBooNE Distribution/v06_04_00/manifest/uboone-06.04.00-Darwin64bit+14-
 ```
 mrb g -t v06_03_00 larsim
 ```
+* The third and best solution is to run 
+```
+ups depend uboonecode v06_16_00_01 -q e10:prof
+```
+with the appropriate version and qualifiers. You can also grep for the package you want i.e:
+```
+ups depend uboonecode v06_16_00_01 -1 e10:prof | grep larsim
+```
+which should make things easier.
