@@ -59,3 +59,13 @@ void makeClassExample() {
 
 
 ## Things to remember and error code solutions
+
+### ERROR leaf:%leafName%, len=%someNumber% and max=%someLowerNumber%
+Problem is likely that you have some branch which holds an array is overruning in to unallocated memory:
+```c++
+   const int maxEntries =  1000;
+   Float_t someVar[maxEntries];
+
+   t->SetBranchAddress("someVarInTree", "someVar");
+```
+In this case, if any entry of the someVarInTree is an array of length > 1000, then this can cause the root script to fail in this way. Increasing maxEntries value should fix this problem but note that it doesn't need to be increased to the number indicated by "len" in the error code.

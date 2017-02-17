@@ -142,7 +142,7 @@ physics.producers.daq.GenNoise: 3 # 0 = no noise, 1 = time dom noise, 2 = freq d
 
 Can also use `standard_detsim_ddr_uboone.fcl` to run with the data driven response function turned on but note this will seg fault if you run a sample with no signal (i.e. noise only) due to a lack of hits.
 
-### Reco1
+####Reco1
 Using `reco_uboone_mcc8_driver_stage1.fcl`
 Noise filtering is turned off by default in mcc8 because of the data driven noise model
 
@@ -150,8 +150,36 @@ To modify the deconvolution filter width parameter, add this line to the driver 
 ```
 services.SignalShapingServiceMicroBooNE.FilterWidthCorrectionFactor: [ 0.5, 0.5, 0.5 ]
 ```
-### Reco2
+#### Reco2
 Using `reco_uboone_mcc8_driver_stage2.fcl`
+
+### Turning off all secondary interactions (MCS, delta rays, etc.)
+This can't be done by fcl parameters, instead a file in the larsim package must be edited. Go get larsim (mrb g larsim -t {correct version}, note that the correct version number does not correspond to the uboonecode or larsoft version you have set up!), and then look at LArG4.mac.
+
+Entering (courtesy of Leon Rochester!)
+```
+# Turn off delta rays... do this before initializaton    
+/run/setCut 1. km    
+
+# need to initialize to get the list and inactivate selected processes
+/run/initialize    
+
+# This generates the list of processes... useful for starters!    
+# /process/list            
+
+# fluctuatons and multiple scattering    
+/process/eLoss/fluct 0    
+/process/inactivate msc
+
+# Turn off decay and capture    
+/process/inactivate Decay    
+/process/inactivate muMinusCaptureAtRest
+
+# a bunch of other stuff... seems to help!    
+/process/inactivate CoulombScat
+/process/inactivate muBrems
+/process/inactivate muPairProd
+```
 
 ##Compiled List of Useful Files for LArSoft
 
