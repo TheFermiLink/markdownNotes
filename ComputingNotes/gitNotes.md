@@ -48,3 +48,5 @@ When creating a new repository, make sure to tell git which repository you'd lik
 
 If you have a forked repository and would like to pull upstream then you can simply  do:
 `git remote add upstream git://github.com/secret_project/dev.git` and then `git pull upstream branch_name`.
+
+You can also check to which repository you'll be pushing by doing `git remote -v`.
